@@ -1,4 +1,4 @@
-package helpers;
+package utilities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.Locale;
 
-public class Helpers {
+public class Utilities {
 
     public static int fibbonachiCalc() {
         int dayOfMonth = LocalDate.now().getDayOfMonth();

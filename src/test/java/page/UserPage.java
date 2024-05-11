@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class AccountPage extends BasePage {
+public class UserPage extends BasePage {
 
     private final By transactionsButton = By.xpath("//button[@ng-click='transactions()']");
     private final By depositTabButton = By.xpath("//button[@ng-click='deposit()']");
@@ -19,12 +19,12 @@ public class AccountPage extends BasePage {
     private final By balanceDiv = By.xpath("//strong[@class='ng-binding'][2]");
     private final By formGroupLabel = By.xpath("//div[@class='form-group']/label");
 
-    public AccountPage(WebDriver driver) {
+    public UserPage(WebDriver driver) {
         super(driver);
     }
 
     @Step("Переключиться на таб \"Deposit\"")
-    private AccountPage clickOnDepositTabButton() {
+    private UserPage clickOnDepositTabButton() {
         wait.until(ExpectedConditions.presenceOfElementLocated(depositTabButton));
         driver.findElement(depositTabButton).click();
         wait.until(ExpectedConditions.textToBe(formGroupLabel, "Amount to be Deposited :"));
@@ -32,21 +32,21 @@ public class AccountPage extends BasePage {
     }
 
     @Step("Установить значение {value} в поле \"amount\"")
-    private AccountPage setValueInAmountField(int value) throws InterruptedException {
+    private UserPage setValueInAmountField(int value) throws InterruptedException {
         WebElement inputField = wait.until(ExpectedConditions.elementToBeClickable(amountField));
         inputField.sendKeys(String.valueOf(value));
         return this;
     }
 
     @Step("Клик на кнопку \"Deposit\" для добавления суммы в депозит")
-    private AccountPage clickOnAddToDepositButton() {
+    private UserPage clickOnAddToDepositButton() {
         WebElement addToDeposit = wait.until(ExpectedConditions.presenceOfElementLocated(addToDepositButton));
         addToDeposit.click();
         return this;
     }
 
     @Step("Внести сумму, равную {value} на депозит")
-    public AccountPage addToDeposit(int value) throws InterruptedException {
+    public UserPage addToDeposit(int value) throws InterruptedException {
         clickOnDepositTabButton();
         setValueInAmountField(value);
         clickOnAddToDepositButton();
@@ -54,7 +54,7 @@ public class AccountPage extends BasePage {
     }
 
     @Step("Переключиться на таб \"Withdrawl\"")
-    private AccountPage clickOnWithdrawlTabButton() {
+    private UserPage clickOnWithdrawlTabButton() {
         wait.until(ExpectedConditions.presenceOfElementLocated(withdrawlTabButton));
         driver.findElement(withdrawlTabButton).click();
         wait.until(ExpectedConditions.textToBe(formGroupLabel, "Amount to be Withdrawn :"));
@@ -62,14 +62,14 @@ public class AccountPage extends BasePage {
     }
 
     @Step("Клик на кнопку \"Withdrawl\" для списания с депозита")
-    private AccountPage clickOnWithdrawlButton() {
+    private UserPage clickOnWithdrawlButton() {
         driver.findElement(addToWithdrawButton).click();
         wait.until(ExpectedConditions.presenceOfElementLocated(successfulMessage));
         return this;
     }
 
     @Step("Списать сумму, равную {value} с депозита")
-    public AccountPage withdrawlFromDeposit(int value) throws InterruptedException {
+    public UserPage withdrawlFromDeposit(int value) throws InterruptedException {
         clickOnWithdrawlTabButton();
         setValueInAmountField(value);
         clickOnWithdrawlButton();

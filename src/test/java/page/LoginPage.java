@@ -33,16 +33,16 @@ public class LoginPage extends BasePage {
         return this;
     }
     @Step("Кликнуть на кнопку \"Login\"")
-    public AccountPage clickLoginButton() {
+    public UserPage clickLoginButton() {
         driver.findElement(loginButton).click();
-        return new AccountPage(driver);
+        return new UserPage(driver);
     }
 
     @Step("Авторизоваться под именем \"{userName}\"")
-    public AccountPage loginAs(String userName) {
+    public UserPage login(String userName) {
         clickOnLoginAsCustomer();
         selectOption(userName);
         clickLoginButton();
-        return new AccountPage(driver);
+        return new UserPage(driver);
     }
 }

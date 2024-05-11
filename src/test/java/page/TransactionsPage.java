@@ -11,11 +11,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-import static helpers.Helpers.formatDateTime;
+import static utilities.Utilities.formatDateTime;
 
 public class TransactionsPage extends BasePage {
 
-    private final By headersInTable = By.xpath("//table/thead/tr/td");
     private final By rowsInTable = By.xpath("//table/tbody/tr");
     private final By backButton = By.xpath("//button[text()='Back']");
     private final By transactionsButton = By.xpath("//button[@ng-click='transactions()']");
@@ -30,11 +29,11 @@ public class TransactionsPage extends BasePage {
             driver.findElement(backButton).click();
             driver.findElement(transactionsButton).click();
         }
-        parseTableAndWriteToCSV();
+        exportTableToCsv();
         return driver.findElements(rowsInTable).size();
     }
 
-    public void parseTableAndWriteToCSV() {
+    public void exportTableToCsv() {
         try {
             FileWriter csvWriter = new FileWriter("src/test/resources/table.csv");
             List<WebElement> rows = driver.findElements(rowsInTable);
@@ -51,7 +50,7 @@ public class TransactionsPage extends BasePage {
             csvWriter.flush();
             csvWriter.close();
 
-            attachCsvFile();
+            addCsvAttachment();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,7 +58,7 @@ public class TransactionsPage extends BasePage {
     }
 
     @Attachment(value = "table", type = "text/csv")
-    public byte[] attachCsvFile() throws IOException {
+    public byte[] addCsvAttachment() throws IOException {
         return Files.readAllBytes(Paths.get("src/test/resources/table.csv"));
     }
 }
